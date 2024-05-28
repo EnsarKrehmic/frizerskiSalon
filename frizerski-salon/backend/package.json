@@ -11,10 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.19.2",
     "mysql": "^2.18.1",
-    "mysql2": "^3.9.8"
-  },
-  "devDependencies": {}
+    "mysql2": "^3.9.8",
+    "path": "^0.12.7"
+  }
 }
