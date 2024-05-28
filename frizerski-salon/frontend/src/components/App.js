@@ -1,18 +1,39 @@
 import React from 'react';
-import DataList from './DataList';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Home from './Home';
+import About from './About';
+import Login from './Login';
+import Contact from './Contact';
 
 const App = () => {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <h1>Welcome to My App</h1>
-            </header>
-            <main>
-                <DataList />
-            </main>
-        </div>
-    );
-};
+  return (
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact</Link>
+            </li>
+          </ul>
+        </nav>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
 
 export default App;

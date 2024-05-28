@@ -2,16 +2,27 @@ const express = require('express');
 const userRoutes = require('./routes/users');
 const cors = require('cors');
 const path = require('path');
-const mysql = require('mysql2');
 const db = require('./config/db');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/api/users', userRoutes);
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+
+app.get('/api/test', (req, res) => {
+  db.query('SELECT * FROM users', (err, results) => {
+    if (err) {
+      console.error('Error fetching data:', err);
+      res.status(500).send('Error fetching data');
+    } else {
+      res.json(results);
+    }
+  });
+});
 
 // API routes
 app.use('/api/data', (req, res) => {
@@ -22,7 +33,6 @@ app.use('/api/data', (req, res) => {
     ]);
 });
 
-app.use('/api/users', userRoutes);
 
 // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
 app.get('*', (req, res) => {
