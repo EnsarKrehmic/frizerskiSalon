@@ -32,7 +32,7 @@ CREATE TABLE `users` (
   `nickname` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
-  `role` varchar(45) DEFAULT NULL,
+  `role` varchar(50) NOT NULL DEFAULT 'guest',
   `status` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
