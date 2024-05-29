@@ -5,13 +5,11 @@ const db = require('../config/db');
 const bcrypt = require('bcrypt');
 
 // Ruta za login
+// Ruta za login
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     console.log(`Received login request for email: ${email}`); // Log received email
     try {
-        if (!email || !password) {
-            return res.status(400).json({ message: 'Email and password are required' });
-        }
         db.query('SELECT * FROM users WHERE email = ?', [email], async (error, results) => {
             if (error) {
                 console.error('Database error:', error); // Log database errors
@@ -23,7 +21,7 @@ router.post('/login', async (req, res) => {
                 const isMatch = await bcrypt.compare(password, user.password);
                 console.log('Password match:', isMatch); // Log result of password comparison
                 if (isMatch) {
-                    res.status(200).json({ message: 'Login successful', user: user });
+                    res.status(200).json({ message: 'Login successful', user: { id: user.id, email: user.email, role: user.role } });
                 } else {
                     res.status(401).json({ message: 'Invalid email or password' });
                 }
@@ -36,8 +34,6 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ message: 'Error logging in. Please try again later.' });
     }
 });
-
-
 
 // Ruta za registraciju novog korisnika
 router.post('/register', async (req, res) => {
