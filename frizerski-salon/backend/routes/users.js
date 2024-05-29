@@ -37,26 +37,37 @@ router.post('/login', async (req, res) => {
     }
 });
 
+
+
 // Ruta za registraciju novog korisnika
 router.post('/register', async (req, res) => {
     const { firstName, lastName, email, password, role } = req.body;
-    try {
+
+    // Provera da li korisnik već postoji
+    db.query('SELECT * FROM users WHERE email = ?', [email], async (error, results) => {
+        if (error) {
+            console.error('Database error:', error);
+            return res.status(500).json({ message: 'Error registering user. Please try again later.' });
+        }
+
+        if (results.length > 0) {
+            return res.status(400).json({ message: 'User already exists.' });
+        }
+
+        // Heširanje lozinke
         const hashedPassword = await bcrypt.hash(password, 10);
-        console.log(`Hashed password for ${email}: ${hashedPassword}`); // Log hashed password
+
+        // Čuvanje korisnika u bazu podataka
         db.query('INSERT INTO users (firstName, lastName, email, password, role) VALUES (?, ?, ?, ?, ?)', 
             [firstName, lastName, email, hashedPassword, role], 
             (error, results) => {
                 if (error) {
-                    console.error('Database error:', error); // Log database errors
+                    console.error('Database error:', error);
                     return res.status(500).json({ message: 'Error registering user. Please try again later.' });
                 }
                 res.status(201).json({ message: 'User registered successfully' });
-            }
-        );
-    } catch (err) {
-        console.error('Error during registration process:', err); // Log any other errors
-        res.status(500).json({ message: 'Error registering user. Please try again later.' });
-    }
+            });
+    });
 });
 
 // Ruta za dohvaćanje svih korisnika
