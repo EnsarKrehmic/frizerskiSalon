@@ -45,3 +45,17 @@ INSERT INTO `users` VALUES
 (2, 'Kemal', 'Muminović', 'moka', 'moka@gmail.com', 'Kemal123', 'admin', 'active'),
 (3, 'Harun', 'Smriko', 'smriko', 'smriko@gmail.com', 'Harun123', 'admin', 'active');
 UNLOCK TABLES;
+
+	-- Table structure for table 'contacts' --
+
+DROP TABLE IF EXISTS `contacts`;
+CREATE TABLE `contacts` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `message` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+LOCK TABLES `contacts` WRITE;
+UNLOCK TABLES;

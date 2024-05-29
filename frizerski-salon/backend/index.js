@@ -1,5 +1,6 @@
 const express = require('express');
 const userRoutes = require('./routes/users');
+const contactRoutes = require('./routes/contact');
 const cors = require('cors');
 const path = require('path');
 const db = require('./config/db');
@@ -9,6 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/api/users', userRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
