@@ -1,10 +1,14 @@
 import React from 'react';
+import './Home.css';
 
 function Home() {
   return (
-    <div>
-      <h1>Dobrodošli na našu stranicu!</h1>
-    </div>
+    <section className="home" id="home">
+      <div className="content">
+        <span>Dobrodošli</span>
+        <h3>Mi činimo <br /> kosu lijepom <br /> i jedinstvenom</h3>
+      </div>
+    </section>
   );
 }
 

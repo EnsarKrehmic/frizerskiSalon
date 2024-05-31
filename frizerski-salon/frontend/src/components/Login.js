@@ -1,72 +1,68 @@
-import React, { useState } from 'react';
-import './Login.css';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Validation from "./LoginValidation";
+import axios from 'axios';
+import "./Main";
 
-const Login = ({ onLogin }) => {
-    const [formData, setFormData] = useState({
+function Login() {
+    const [values, setValues] = useState({
         email: '',
         password: ''
-    });
+        })
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
+        const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch('http://localhost:3000/api/users/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+        const [errors, setErrors] = useState({})
 
-            const result = await response.json();
+        const handleInput =(event) => {
+            setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
 
-            if (response.ok) {
-                alert('Prijava uspešna!');
-                onLogin(result.user);
-            } else {
-                alert(result.message || 'Došlo je do greške pri prijavi. Molimo pokušajte ponovo.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Došlo je do greške pri prijavi. Molimo pokušajte ponovo.');
         }
-    };
 
-    return (
-        <div className="login">
-            <h1>Prijava</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Lozinka:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <button type="submit">Prijavi se</button>
-            </form>
+        const handleSubmit =(event) => {
+            event.preventDefault();
+            setErrors(Validation(values));
+            const err = Validation(values);
+            setErrors(err);
+            if(err.email === "" && err.password === "") {
+                axios.post('https://localhost:3307/login', values)
+                .then(res => {
+                    if(res.data === "Uspješno") {
+                        navigate('/main');
+                    } else {
+                        alert("Unos nije snimljen")
+                    }
+                })
+                .catch(err => console.log(err));
+            }
+        }
+
+        return (
+            <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
+            <div className="bg-white p-3 rounded w-25">
+                <h2>Prijava</h2>
+                <form action="" onSubmit={handleSubmit}>
+                    <div>
+                        <div>
+                            <label htmlFor="email"><strong>Email</strong></label>
+                            <input type="email" placeholder="Unesite email" name="email"
+                            onChange={handleInput} className="form-control rounded-0"/>
+                            {errors.email && <span className="text-danger"> {errors.email}</span>}
+                        </div>
+                        <div>
+                        <label htmlFor="password"><strong>Lozinka</strong></label>
+                        <input type="password" placeholder="Unesite lozinku" name="password"
+                        onChange={handleInput} className="form-control rounded-0"/>
+                        {errors.password && <span className="text-danger"> {errors.password}</span>}
+                        <button type="submit" className='btn btn-success bg-dark w-100 rounded-0'><strong>Prijava</strong></button>
+                        <p>-</p>
+                        <Link to="/register" className='btn btn-default border bg-dark w-100 rounded-0 text-decoration-none'>Napravite profil</Link>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-    );
-};
+    )
+}
 
-export default Login;
+export default Login
