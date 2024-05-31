@@ -27,13 +27,13 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(45) DEFAULT NULL,
-  `lastName` varchar(45) DEFAULT NULL,
-  `nickname` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `password` varchar(100) DEFAULT NULL,
-  `role` varchar(50) NOT NULL DEFAULT 'guest',
-  `status` varchar(45) DEFAULT NULL,
+  `firstName` varchar(20) DEFAULT NULL,
+  `lastName` varchar(20) DEFAULT NULL,
+  `nickname` varchar(20) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `password` varchar(30) DEFAULT NULL,
+  `role` varchar(20) NOT NULL DEFAULT 'guest',
+  `status` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -46,13 +46,28 @@ INSERT INTO `users` VALUES
 (3, 'Harun', 'Smriko', 'smriko', 'smriko@gmail.com', 'Harun123', 'admin', 'active');
 UNLOCK TABLES;
 
+	-- Table structure for table 'login' --
+
+DROP TABLE IF EXISTS `login`;
+CREATE TABLE `login` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `surname` varchar(20) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+LOCK TABLES `login` WRITE;
+UNLOCK TABLES;
+
 	-- Table structure for table 'contacts' --
 
 DROP TABLE IF EXISTS `contacts`;
 CREATE TABLE `contacts` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `email` varchar(30) NOT NULL,
   `message` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
