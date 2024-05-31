@@ -1,10 +1,36 @@
 const express = require('express');
-const router = express.Router();
 const User = require('../models/user');
 const db = require('../config/db');
 const bcrypt = require('bcrypt');
+const mysql = require('mysql2');
+const cors = require('cors');
+const router = express.Router();
 
-// Ruta za login
+/*router.post('/register', async (req, res) => {
+    const sql = "INSERT INTO login (`name`,`surname`,`email`,`password`) VALUES (?)";
+    const { name, surname, email, password } = req.body;
+    db.query(sql, [values], (err, data) => {
+        if(err) {
+            return res.json("Greška");
+        }
+        return res.json(data);
+    })
+})
+
+router.post('/login', async (req, res) => {
+    const sql = "SELECT * FROM login WHERE `email` = ? AND `password` = ?";
+    db.query(sql, [req.body.email, req.body.password], (err, data) => {
+        if(err) {
+            return res.json("Greška");
+        }
+        if(data.lenght > 0) {
+            return res.json("Uspješno");
+        } else {
+            return res.json("Neuspješno");
+        }
+    })
+})*/
+
 // Ruta za login
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;

@@ -1,6 +1,6 @@
 const express = require('express');
-const userRoutes = require('./routes/users');
 const contactRoutes = require('./routes/contact');
+const userRoutes = require('./routes/users');
 const cors = require('cors');
 const path = require('path');
 const db = require('./config/db');
@@ -47,7 +47,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3307;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
