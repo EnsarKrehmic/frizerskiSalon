@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:1,300,400,400italic,500,700,700italic,900');
+
+:root{
+    --main-color: #DDD0C8;
+    --primary-color: #323232;
+    --hover: #5a4d3e;
+    --black: #2a201c;
+    --white: #fff;
+    --light-bg: #f3efec;
+    --dark-bg: rgba(0,0,0,.7);
+    --border: .1rem solid #aaa;
+    --box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+}
+
+*{
+   font-family: 'Playfair Display', sans-serif;
+   margin:0; padding:0;
+   box-sizing: border-box;
+   outline: none; border:none;
+   text-decoration: none;
+   transition: all .2s linear;
+}
+ 
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+}
+ 
+html::-webkit-scrollbar{
+    width: .6rem;
+}
+ 
+html::-webkit-scrollbar-track{
+    background-color: var(--white);
+}
+ 
+html::-webkit-scrollbar-thumb{
+    background-color: var(--primary-color);
+}
+ 
+section{
+    padding: 5rem 7%;
+}
+
+.heading{
+   text-align: center;
+   color:var(--primary-color);
+   text-transform: capitalize;
+   margin-bottom: 3rem;
+   font-size: 4rem;
+   margin-top: 4rem;
+}
+ 
+.btn{
+   margin-top: 1rem;
+   display: inline-block;
+   background: var(--primary-color);
+   color:var(--white);
+   font-size: 2rem;
+   cursor: pointer;
+   padding:1rem 3rem;
+}
+ 
+.btn:hover{
+    background: var(--hover);
+}
+
+.footer{
+    background: var(--main-color);
+    text-align: center;
+}
+  
+.footer .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 2rem;
+}
+  
+.footer .box-container .box h3{
+    font-size: 2.2rem;
+    text-transform: capitalize;
+    color: var(--primary-color);
+    padding: 1rem 0;
+}
+  
+.footer .box-container .box p{
+    font-size: 1.5rem;
+    line-height: 2;
+    color: var(--black);
+    padding: 1rem 0;
+}
+  
+.footer .box-container .box .share{
+    margin-top: 1rem;
+}
+  
+.footer .box-container .box .share a{
+    height: 4.5rem;
+    width: 4.5rem;
+    line-height: 4.5rem;
+    border-radius: 50%;
+    font-size: 1.7rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    margin-right: .3rem;
+    text-align: center;
+}
+  
+.footer .box-container .box .share a:hover{
+    background-color: var(--black);
+  }
+  
+.footer .box-container .box .link{
+    font-size: 1.7rem;
+    line-height: 2;
+    color: var(--primary-color);
+    padding: .5rem 0;
+    display: block;
+    text-decoration: underline;
+}
+  
+  .footer .box-container .box .link:hover{
+    color: var(--black);
+    text-decoration: underline;
+}
+  
+.footer .box-container .box .email{
+    width: 100%;
+    padding: 1.2rem 1.4rem;
+    font-size: 1.6rem;
+    border: 0.1rem solid var(--primary-color);
+    margin-bottom: 1rem;
+}
+  
+  .footer .credit{
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 3rem;
+    font-size: 2rem;
+    text-transform: capitalize;
+    color: #444;
+    border-top: 0.1rem solid var(--primary-color);
+}
+  
+  .footer .credit span{
+    color: var(--primary-color);
+}
