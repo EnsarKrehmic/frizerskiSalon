@@ -4,9 +4,15 @@ const db = require('../config/db');
 // Definicija modela User
 const User = {
     // Metoda za kreiranje novog korisnika
-    create: (username, password, email, callback) => {
-        const query = 'INSERT INTO users (username, password, email) VALUES (?, ?, ?)';
-        db.query(query, [username, password, email], callback);
+    create: (firstName, lastName, nickname, email, password, callback) => {
+        const sql = "INSERT INTO users (firstName, lastName, nickname, email, password) VALUES (?, ?, ?, ?)";
+        db.query(sql, [firstName, lastName, nickname, email, password], (err, data) => {
+            if(err) {
+                return res.json("Greška");
+            }
+            return res.json(data);
+        });
+        
     },
     
     // Metoda za dohvaćanje svih korisnika
@@ -22,9 +28,9 @@ const User = {
     },
     
     // Metoda za ažuriranje korisnika
-    update: (id, username, password, email, callback) => {
-        const query = 'UPDATE users SET username = ?, password = ?, email = ? WHERE id = ?';
-        db.query(query, [username, password, email, id], callback);
+    update: (id, firstName, lastName, nickname, email, password, callback) => {
+        const query = 'UPDATE users SET firstName = ?, lastName = ?, nickname = ?, password = ?, email = ? WHERE id = ?';
+        db.query(query, [id, firstName, lastName, nickname, email, password], callback);
     },
     
     // Metoda za brisanje korisnika

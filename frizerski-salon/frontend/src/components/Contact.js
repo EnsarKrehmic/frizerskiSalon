@@ -39,7 +39,7 @@ const Contact = () => {
     return (
         <div className="contact">
             <h1>Kontaktirajte nas</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} id="contactform">
                 <div className="form-group">
                     <label htmlFor="name">Ime:</label>
                     <input
@@ -49,6 +49,7 @@ const Contact = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
+                        autoComplete="name"
                     />
                 </div>
                 <div className="form-group">
@@ -60,6 +61,7 @@ const Contact = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
+                        autoComplete="email"
                     />
                 </div>
                 <div className="form-group">
@@ -70,9 +72,10 @@ const Contact = () => {
                         value={formData.message}
                         onChange={handleChange}
                         required
+                        autoComplete="off"
                     />
                 </div>
-                <button type="submit">Pošalji</button>
+                <button type="submit" autoComplete="off">Pošalji</button>
             </form>
 
             <div className="map">

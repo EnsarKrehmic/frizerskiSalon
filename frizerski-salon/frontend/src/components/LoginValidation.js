@@ -1,4 +1,4 @@
-function Validation(values) {
+function LoginValidation(values) {
     alert("")
     let error = {}
     const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -24,4 +24,4 @@ function Validation(values) {
     return error;
 }
 
-export default Validation;
+export default LoginValidation;

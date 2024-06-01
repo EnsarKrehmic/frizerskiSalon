@@ -6,58 +6,33 @@ const mysql = require('mysql2');
 const cors = require('cors');
 const router = express.Router();
 
-/*router.post('/register', async (req, res) => {
-    const sql = "INSERT INTO login (`name`,`surname`,`email`,`password`) VALUES (?)";
-    const { name, surname, email, password } = req.body;
-    db.query(sql, [values], (err, data) => {
-        if(err) {
-            return res.json("Greška");
-        }
-        return res.json(data);
-    })
-})
-
-router.post('/login', async (req, res) => {
-    const sql = "SELECT * FROM login WHERE `email` = ? AND `password` = ?";
-    db.query(sql, [req.body.email, req.body.password], (err, data) => {
-        if(err) {
-            return res.json("Greška");
-        }
-        if(data.lenght > 0) {
-            return res.json("Uspješno");
-        } else {
-            return res.json("Neuspješno");
-        }
-    })
-})*/
-
 // Ruta za login
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    console.log(`Received login request for email: ${email}`); // Log received email
+    console.log(`Received login request for email: ${email}`);
     try {
-        db.query('SELECT * FROM users WHERE email = ?', [email], async (error, results) => {
+        db.query('SELECT * FROM login WHERE email = ?', [email], async (error, results) => {
             if (error) {
-                console.error('Database error:', error); // Log database errors
-                return res.status(500).json({ message: 'Error logging in. Please try again later.' });
+                console.error('Database error:', error);
+                return res.status(500).json({ message: 'Greška pri prijavi. Molimo pokušajte ponovo.' });
             }
-            console.log('Database query results:', results); // Log query results
+            console.log('Database query results:', results);
             if (results.length > 0) {
                 const user = results[0];
                 const isMatch = await bcrypt.compare(password, user.password);
-                console.log('Password match:', isMatch); // Log result of password comparison
+                console.log('Password match:', isMatch);
                 if (isMatch) {
-                    res.status(200).json({ message: 'Login successful', user: { id: user.id, email: user.email, role: user.role } });
+                    res.status(200).json({ message: 'Prijava uspješna.', user: { id: user.id, email: user.email, role: user.role } });
                 } else {
-                    res.status(401).json({ message: 'Invalid email or password' });
+                    res.status(401).json({ message: 'Pogrešan email ili lozinka.' });
                 }
             } else {
-                res.status(401).json({ message: 'Invalid email or password' });
+                res.status(401).json({ message: 'Pogrešan email ili lozinka.' });
             }
         });
     } catch (err) {
-        console.error('Error during login process:', err); // Log any other errors
-        res.status(500).json({ message: 'Error logging in. Please try again later.' });
+        console.error('Error during login process:', err);
+        res.status(500).json({ message: 'Greška pri prijavi. Molimo pokušajte ponovo..' });
     }
 });
 
@@ -69,11 +44,11 @@ router.post('/register', async (req, res) => {
     db.query('SELECT * FROM users WHERE email = ?', [email], async (error, results) => {
         if (error) {
             console.error('Database error:', error);
-            return res.status(500).json({ message: 'Error registering user. Please try again later.' });
+            return res.status(500).json({ message: 'Greška pri prijavi. Molimo pokušajte ponovo.' });
         }
 
         if (results.length > 0) {
-            return res.status(400).json({ message: 'User already exists.' });
+            return res.status(400).json({ message: 'Korisnik već postoji' });
         }
 
         // Heširanje lozinke
@@ -85,9 +60,9 @@ router.post('/register', async (req, res) => {
             (error, results) => {
                 if (error) {
                     console.error('Database error:', error);
-                    return res.status(500).json({ message: 'Error registering user. Please try again later.' });
+                    return res.status(500).json({ message: 'Greška pri registraciji korisnika. Molimo pokušajte kasnije.' });
                 }
-                res.status(201).json({ message: 'User registered successfully' });
+                res.status(201).json({ message: 'Korisnik uspješno registrovan.' });
             });
     });
 });
@@ -110,7 +85,7 @@ router.get('/:id', (req, res) => {
             return res.status(500).send(err);
         }
         if (result.length === 0) {
-            return res.status(404).send('User not found');
+            return res.status(404).send('Korisnik nije pronađen.');
         }
         res.status(200).json(result[0]);
     });
@@ -119,15 +94,15 @@ router.get('/:id', (req, res) => {
 // Ruta za ažuriranje korisnika
 router.put('/:id', (req, res) => {
     const { id } = req.params;
-    const { username, password, email } = req.body;
-    User.update(id, username, password, email, (err, result) => {
+    const { firstName, lastName, password, email } = req.body;
+    User.update(id, firstName, lastName, password, email, (err, result) => {
         if (err) {
             return res.status(500).send(err);
         }
         if (result.affectedRows === 0) {
-            return res.status(404).send('User not found');
+            return res.status(404).send('Korisnik nije pronađen.');
         }
-        res.status(200).send('User updated successfully');
+        res.status(200).send('Korisnik uspješno ažuriran.');
     });
 });
 
@@ -139,9 +114,9 @@ router.delete('/:id', (req, res) => {
             return res.status(500).send(err);
         }
         if (result.affectedRows === 0) {
-            return res.status(404).send('User not found');
+            return res.status(404).send('Korisnik nije pronađen.');
         }
-        res.status(200).send('User deleted successfully');
+        res.status(200).send('Korisnik uspješno obrisan.');
     });
 });
 
