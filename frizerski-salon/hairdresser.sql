@@ -51,8 +51,8 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `login`;
 CREATE TABLE `login` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL,
-  `surname` varchar(20) NOT NULL,
+  `firstName` varchar(20) NOT NULL,
+  `lastName` varchar(20) NOT NULL,
   `email` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
@@ -66,7 +66,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `contacts`;
 CREATE TABLE `contacts` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL,
+  `firstName` varchar(20) NOT NULL,
   `email` varchar(30) NOT NULL,
   `message` text NOT NULL,
   PRIMARY KEY (`id`)
