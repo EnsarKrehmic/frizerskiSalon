@@ -7,7 +7,7 @@ function Visit() {
         <h1 class="headingtermin"> Zakažite Termin </h1>
         <div class="row">
             <form action="">
-                <h3>Zakažite Vaš Prvi Termin Danas</h3>
+                <h3>Zakažite Vaš Termin Danas</h3>
                 <div class="inputBox">
                     <input type="text" placeholder="Vaše Ime"/>
                 </div>
