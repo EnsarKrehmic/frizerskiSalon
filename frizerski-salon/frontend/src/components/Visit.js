@@ -3,26 +3,26 @@ import './Visit.css';
 
 function Visit() {
   return (
-    <section class="visit" id="visit">
-        <h1 class="headingtermin"> Zakažite Termin </h1>
-        <div class="row">
+    <section className="visit" id="visit">
+        <h1 className="headingtermin"> Zakažite Termin </h1>
+        <div className="row">
             <form action="">
                 <h3>Zakažite Vaš Termin Danas</h3>
-                <div class="inputBox">
+                <div className="inputBox">
                     <input type="text" placeholder="Vaše Ime"/>
                 </div>
-                <div class="inputBox">
+                <div className="inputBox">
                     <input type="email" placeholder="Vaš E-mail"/>
                 </div>
-                <div class="inputBox">
+                <div className="inputBox">
                     <input type="text" placeholder="Predmet"/>
                 </div>
-                <div class="inputBox">
+                <div className="inputBox">
                     <input type="text" placeholder="Poruka"/>
                 </div>
-                <input type="submit" value="POŠALJI" class="btn"/>
+                <input type="submit" value="POŠALJI" className="btn"/>
             </form>
-            <div class="image">
+            <div className="image">
                 <img src="images/contact.png" alt=""/>
             </div>
         </div>
