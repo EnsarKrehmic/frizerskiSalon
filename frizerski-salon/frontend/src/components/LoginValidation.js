@@ -1,27 +1,29 @@
-function LoginValidation(values) {
+function Validation(values) {
     alert("")
     let error = {}
     const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     const password_patern = /^(?=.*\d)(d?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/
 
-    if(values.email === "") {
+    if(values.email === ""){
         error.email = "Niste unijeli email"
     }
-    else if (!email_pattern.test(values.email)) {
+    else if(!email_pattern.test(values.email)) {
         error.email = "Email nije ispravan"
-    }else {
+    }
+    else {
         error.email = ""
     }
 
-    if(values.password === "") {
+    if(values.password === ""){
         error.password = "Niste unijeli lozinku"
     }
-    else if(!password_patern.test(values.password)) {
+    else if(!password_patern.test(values.password)){
         error.password = "Lozinka nije ispravna"
-    } else {
+    }
+    else{
         error.password = ""
     }
     return error;
 }
 
-export default LoginValidation;
+export default Validation;

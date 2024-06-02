@@ -1,21 +1,22 @@
 import React, {useState} from "react";
-import { useNavigate, Link  } from "react-router-dom";
-import Validation from "./Validation";
+import { Link, useNavigate } from "react-router-dom";
+import Validation from "./RegisterValidation";
 import axios from 'axios';
 
-function Register() {
-    const [values, setValues] = useState({
-        name: '',
-        surname: '',
-        email: '',
+function Register(){
+    const [values, setValues]=useState({
+        firstName:'',
+        lastName:'',
+        nickname:'',
+        email:'',
         password: ''
-        });
+        })
 
-        const [errors, setErrors] = useState({});
+        const navigate=useNavigate();
 
-        const navigate = useNavigate();
+        const [errors, setErrors] = useState({})
 
-        const handleInput =(event) => {
+        const handleInput=(event) => {
             setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
 
         }
@@ -34,42 +35,47 @@ function Register() {
             }
         }
 
-    return (
-        <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
+    return(
+        <div className="d-flex justify-content-center align-items-center bg-warning vh-100">
             <div className="bg-white p-3 rounded w-25">
-                <h2>Registracija</h2>
+                <h2>REGISTRACIJA</h2>
                 <form action="" onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="name"><strong>Ime</strong></label>
-                        <input type="text" placeholder="Unesite ime" name="name"
+                    <div className="mb-3">
+                        <label htmlFor="firstName">Ime</label>
+                        <input type="text" placeholder="Unesite ime" name="firstName"
                         onChange={handleInput} className="form-control rounded-0"/>
-                        {errors.name && <span className="text-danger"> {errors.name}</span>}
+                        {errors.firstName && <span className="text-danger">{errors.firstName}</span>}
                     </div>
-                    <div>
-                        <label htmlFor="surname"><strong>Prezime</strong></label>
-                        <input type="text" placeholder="Unesite prezime" name="surname"
+                    <div className="mb-3">
+                        <label htmlFor="lastName">Prezime</label>
+                        <input type="text" placeholder="Unesite prezime" name="lastName"
                         onChange={handleInput} className="form-control rounded-0"/>
-                        {errors.surname && <span className="text-danger"> {errors.surname}</span>}
+                        {errors.lastName && <span className="text-danger">{errors.lastName}</span>}
                     </div>
-                    <div>
-                        <label htmlFor="email"><strong>Email</strong></label>
+                    <div className="mb-3">
+                        <label htmlFor="nickname">Nadimak</label>
+                        <input type="text" placeholder="Unesite nadimak" name="nickname"
+                        onChange={handleInput} className="form-control rounded-0"/>
+                        {errors.nickname && <span className="text-danger">{errors.nickname}</span>}
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="email">Email</label>
                         <input type="email" placeholder="Unesite email" name="email"
                         onChange={handleInput} className="form-control rounded-0"/>
-                        {errors.email && <span className="text-danger"> {errors.email}</span>}
+                        {errors.email && <span className="text-danger">{errors.email}</span>}
                     </div>
-                    <div>
-                    <label htmlFor="password"><strong>Lozinka</strong></label>
-                    <input type="password" placeholder="Unesite lozinku" name="password"
-                    onChange={handleInput} className="form-control rounded-0"/>
-                    {errors.password && <span className="text-danger"> {errors.password}</span>}
-                    <button type="submit" className='btn btn-success bg-dark w-100 rounded-0'><strong>Registracija</strong></button>
-                    <p>-</p>
-                    <Link to="/login" className='btn btn-default border w-100 bg-dark rounded-0 text-decoration-none'>Prijava</Link>
-                </div>
+                    <div className="mb-3">
+                        <label htmlFor="password">Lozinka</label>
+                        <input type="password" placeholder="Unesite lozinku" name="password"
+                        onChange={handleInput} className="form-control rounded-0"/>
+                        {errors.password && <span className="text-danger">{errors.password}</span>}
+                    </div>
+                    <button type="submit" className="btn btn-success w-100">Registracija</button>
+                    <Link to="/login" className="btn btn-success w-100 mb-2 bg-dark">Već imate profil? Prijavite se!</Link>
                 </form>
             </div>
         </div>
-    )   
+    )
 }
 
 export default Register

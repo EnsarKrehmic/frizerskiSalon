@@ -12,7 +12,19 @@ import Visit from './Visit';
 import Login from './Login';
 import Register from './Register';
 import Contact from './Contact';
-import AdminPanel from './AdminPanel';
+import Admin from './Admin';
+import LogoutButton from "./LogoutButton";
+import AddUser from "./AddUser";
+import UpdateUser from "./UpdateUser";
+import AddWorker from "./AddWorker";
+import UpdateWorker from "./UpdateWorker";
+import ChosenWorker from "./ChosenWorker";
+import AddQuestion from "./AddQuestion";
+import ChosenWorkerAdmin from "./ChosenWorkerAdmin";
+import WorkerRegister from "./WorkerRegister";
+import WorkerHistory from "./WorkerHistory";
+import Guest from "./Guest";
+import GuestChosenWorker from "./GuestChosenWorker";
 import Footer from './Footer';
 import './App.css';
 
@@ -42,8 +54,21 @@ const App = () => {
                 <Route path="/login" element={<Login onLogin={handleLogin} />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/admin" element={<Admin />}></Route>
+                <Route path="/logout" element={<LogoutButton />}></Route>
+                <Route path="/add-user" element={<AddUser />}></Route>
+                <Route path="/admin/update/:id" element={<UpdateUser />}></Route>
+                <Route path="/add-worker" element={<AddWorker />}></Route>
+                <Route path="/admin/update-worker/:id" element={<UpdateWorker />}></Route>
+                <Route path="/chosen-worker/:id" element={<ChosenWorker />}></Route>
+                <Route path="/admin/chosen-worker/:id" element={<ChosenWorkerAdmin />}></Route>
+                <Route path="/chosen-worker/:id/add-question/:id" element={<AddQuestion />}></Route>
+                <Route path="/worker-register/:id" element={<WorkerRegister />}></Route>
+                <Route path="/worker-history/:id" element={<WorkerHistory />}></Route>
+                <Route path="/guest" element={<Guest />}></Route>
+                <Route path="/chosen-worker-guest/:id" element={<GuestChosenWorker />}></Route>
                 <Route path="/footer" element={<Footer />} />
-                {user && user.role === 'admin' && <Route path="/admin" element={<AdminPanel />} />}
+                {user && user.role === 'admin' && <Route path="/admin" element={<Admin />} />}
             </Routes>
         </Router>
     );

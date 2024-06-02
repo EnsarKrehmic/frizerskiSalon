@@ -2,13 +2,13 @@ const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 
-// Create a connection to the database
+// Kreiranje konekcije na bazu
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: 3307,
+  port: 3366,
 });
 
 connection.connect((err) => {
