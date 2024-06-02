@@ -13,11 +13,9 @@ const db = require("./config/db");
 
 const app = express();
 
-app.use(cors({
-  origin: "http://localhost:3307",
-  methods: ["POST", "GET", "PUT", "DELETE"],
-  credentials: true,
-}));
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
