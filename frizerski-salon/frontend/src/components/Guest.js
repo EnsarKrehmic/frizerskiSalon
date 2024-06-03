@@ -23,7 +23,7 @@ function Guest(){
                 <h1 className="text-center">Dobrodošli na Frizerski salon</h1>
                 <p className="text-center">Zdravo, gost!</p>
                 <div className="d-flex justify-content-center align-items-center">
-                    <Link to={"/"} className="btn btn-primary m-2">Prijava</Link>
+                    <Link to={"/login"} className="btn btn-primary m-2">Prijava</Link>
                 </div>
                 <h2 className="text-center">Ponuda svih radnika:</h2>
                 <div className="w-80 bg-white-rounded">
@@ -36,7 +36,7 @@ function Guest(){
                                     <th>Ime</th>
                                     <th>Opis</th>
                                     <th>Vrsta</th>
-                                    <th>Upravljaj</th>
+                                    <th>Pregled</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,7 +46,7 @@ function Guest(){
                                         <td>{data.description}</td>
                                         <td>{data.type}</td>
                                         <td>
-                                            <Link to={`/chosen-worker-guest/${data.id}`} className="btn btn-info m-2">Unesite</Link>
+                                            <Link to={`/chosen-worker-guest/${data.id}`} className="btn btn-info m-2">Pogledaj</Link>
                                         </td>
                                     </tr>
                                 ))}

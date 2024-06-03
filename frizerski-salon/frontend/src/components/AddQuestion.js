@@ -10,12 +10,12 @@ function AddQuestion(){
         user_id:''
     })
 
-    axios.defaults.withCredentials=true;
-    const navigate=useNavigate();
+    axios.defaults.withCredentials = true;
+    const navigate = useNavigate();
 
-    const handleInput=(event)=>{
-        setValues(prev =>({...prev, [event.target.name]:[event.target.value]}))
-    }
+    const handleInput = (event) => {
+        setValues(prev => ({ ...prev, [event.target.name]: event.target.value }))
+    };
 
     const handleSubmit=(event)=>{
         values.user_id=userInfo.id;

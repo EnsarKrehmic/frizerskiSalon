@@ -64,9 +64,9 @@ CREATE TABLE `workers` (
 
 LOCK TABLES `workers` WRITE;
 INSERT INTO `workers` VALUES
-(1, 'krehmiicjr', 'Kvalitetan, Profesionalan', 'Frizer'),
-(2, 'moka', '', 'Moderan, Kreativan'),
-(3, 'smriko', 'Povjerljiv, Odgovoran', 'Pomoćni radnik');
+(1, 'Ensar', 'Kvalitetan, Profesionalan', 'Frizer'),
+(2, 'Kemal', 'Moderan, Kreativan', 'Stilista'),
+(3, 'Harun', 'Povjerljiv, Odgovoran', 'Pomoćni radnik');
 UNLOCK TABLES;
 
 -- Table structure for table 'worker_registers'

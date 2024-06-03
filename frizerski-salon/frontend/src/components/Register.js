@@ -10,36 +10,39 @@ function Register(){
         nickname:'',
         email:'',
         password: ''
-        })
+    });
 
-        const navigate=useNavigate();
+    const navigate=useNavigate();
 
-        const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState({})
 
-        const handleInput=(event) => {
-            setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
+    const handleInput=(event) => {
+        setValues(prev => ({...prev, [event.target.name]: event.target.value}));
+    }
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setErrors(Validation(values));
+        const err = Validation(values);
+        setErrors(err);
+        if (err.firstName === "" && err.lastName === "" && err.nickname === "" && err.email === "" && err.password === "") {
+            axios.post('http://localhost:3307/register', values)
+            .then(res => {
+                // Poruka o uspješnoj registraciji
+                alert("Uspješno ste se registrovali! Molimo prijavite se.");
+
+                // Preusmjeravanje korisnika na stranicu za prijavu
+                navigate('/login');
+            })
+            .catch(err => console.log(err));
         }
-
-        const handleSubmit =(event) => {
-            event.preventDefault();
-            setErrors(Validation(values));
-            const err = Validation(values);
-            setErrors(err);
-            if(err.name === "" && err.surname === "" && err.email === "" && err.password === "") {
-                axios.post('https://localhost:3307/register', values)
-                .then(res => {
-                    navigate('/');
-                })
-                .catch(err => console.log(err));
-            }
-        }
+    }
 
     return(
         <div className="d-flex justify-content-center align-items-center bg-warning vh-100">
             <div className="bg-white p-3 rounded w-25">
                 <h2>REGISTRACIJA</h2>
-                <form action="" onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="firstName">Ime</label>
                         <input type="text" placeholder="Unesite ime" name="firstName"
@@ -78,4 +81,4 @@ function Register(){
     )
 }
 
-export default Register
+export default Register;

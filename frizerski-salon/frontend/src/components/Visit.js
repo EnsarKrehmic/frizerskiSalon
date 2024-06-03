@@ -1,5 +1,4 @@
 import React from 'react';
-import contact from '../images/contact.png';
 import './Visit.css';
 
 function Visit() {
@@ -23,9 +22,6 @@ function Visit() {
                 </div>
                 <input type="submit" value="POŠALJI" className="btn"/>
             </form>
-            <div className="image">
-                <img src={contact} alt=""/>
-            </div>
         </div>
     </section>
   );

@@ -1,11 +1,11 @@
-// Uvoz modula za bazu podataka
+/* Uvoz modula za bazu podataka
 const db = require('../config/db');
 
 // Definicija modela User
 const User = {
     // Metoda za kreiranje novog korisnika
     create: (firstName, lastName, nickname, email, password, callback) => {
-        const sql = "INSERT INTO users (firstName, lastName, nickname, email, password) VALUES (?, ?, ?, ?)";
+        const sql = "INSERT INTO users (firstName, lastName, nickname, email, password) VALUES (?, ?, ?, ?, ?)";
         db.query(sql, [firstName, lastName, nickname, email, password], (err, data) => {
             if(err) {
                 return res.json("Greška");
@@ -41,4 +41,4 @@ const User = {
 };
 
 // Izvoz modula User
-module.exports = User;
+module.exports = User;*/

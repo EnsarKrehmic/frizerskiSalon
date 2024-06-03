@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // host za backend
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'http://localhost:3307';
 
 const api = axios.create({
     baseURL: API_BASE_URL,

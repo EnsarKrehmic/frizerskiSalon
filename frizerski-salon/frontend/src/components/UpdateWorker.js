@@ -11,13 +11,14 @@ function UpdateWorker(){
         type:'Frizer'
     })
 
-    const navigate=useNavigate();
+    axios.defaults.withCredentials = true;
+    const navigate = useNavigate();
 
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState({});
 
-    const handleInput=(event)=>{
-        setValues((prev) =>({...prev, [event.target.name]: event.target.value}));
-    }
+    const handleInput = (event) => {
+        setValues(prev => ({ ...prev, [event.target.name]: event.target.value }))
+    };
 
     const handleSubmit=(event)=>{
         event.preventDefault();

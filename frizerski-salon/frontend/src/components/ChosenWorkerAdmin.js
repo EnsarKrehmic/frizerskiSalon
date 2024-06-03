@@ -39,11 +39,11 @@ function ChosenWorkerAdmin(){
     return(
         <div className="d-flex justify-content-center align-items-center bg-warning">
             <div className="bg-white p-3 rounded w-80 m-5">
-                <Link to={"/admin"} className="btn btn-default border w-100 bg-light text-decoration-none">Nazad</Link>
-                <h1>Podaci o radniku</h1>
-                <h2>Ime: {worker.name}</h2>
-                <p>Opis: {worker.description}</p>
-                <p>Vrsta: {worker.type}</p>
+                <Link to={"/admin"} className="btn btn-success border w-100 bg-dark text-decoration-none">Nazad</Link>
+                <h2>Podaci o radniku</h2>
+                <h3>Ime: {worker.name}</h3>
+                <h3>Opis:</h3> <p>{worker.description}</p>
+                <h3>Vrsta:</h3> <p>{worker.type}</p>
                 <h2>Pitanja:</h2>
                 {questions.length === 0 ? (
                     <p>Nema dostupnih pitanja.</p>

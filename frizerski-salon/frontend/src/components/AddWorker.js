@@ -10,33 +10,36 @@ function AddWorker(){
         type:''
     })
 
-    const navigate=useNavigate();
+    axios.defaults.withCredentials = true;
+    const navigate = useNavigate();
 
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState({});
 
-    const handleInput=(event)=>{
-        setValues((prev) =>({...prev, [event.target.name]: event.target.value}));
-    }
+    const handleInput = (event) => {
+        setValues(prev => ({ ...prev, [event.target.name]: event.target.value }))
+    };
 
-    const handleSubmit=(event)=>{
+    const handleSubmit = (event) => {
         event.preventDefault();
         setErrors(Validation(values));
-        if(errors.title==="" && errors.description===""){
+
+        if(values.name !== "" && values.description !== ""){
             axios.post("http://localhost:3307/admin/add-worker", values)
-            .then(res=>{
-                console.log("Server response:", res.data);
-                alert("Radnik uspješno kreairan.");
-                navigate("/admin");
-            })
+                .then(res=>{
+                    console.log("Server response:", res.data);
+                    alert("Radnik uspješno kreiran.");
+                    navigate("/admin");
+                })
             .catch(err=>console.log(err));
         }
     }
+    
 
     return(
         <div className="d-flex justify-content-center align-items-center bg-warning vh-100">
-            <div className="bg-white p-3 rounded w-25">
-                <h2>Dodaj radnika</h2>
-                <Link to="/admin" className="btn btn-default border w-100 bg-light text-decoration-none">Nazad</Link>
+            <div className="bg-white p-3 rounded w-35">
+                <h2>Dodavanje novog radnika</h2>
+                <Link to="/admin" className="btn btn-success border w-100 bg-dark text-decoration-none center">Nazad</Link>
                 <form action="" onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="name">Ime</label>
@@ -46,7 +49,7 @@ function AddWorker(){
                     </div>
                     <div className="mb-3">
                         <label htmlFor="description">Opis</label>
-                        <input type="text" placeholder="Enter Description" name="description"
+                        <input type="text" placeholder="Unesite opis" name="description"
                         onChange={handleInput} className="form-control rounded-0"/>
                         {errors.description && <span className="text-danger">{errors.description}</span>}
                     </div>

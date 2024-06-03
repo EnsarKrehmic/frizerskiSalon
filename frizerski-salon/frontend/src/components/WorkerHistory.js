@@ -31,9 +31,9 @@ function WorkerHistory(){
                         <table className="table">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
+                                    <th>Ime</th>
+                                    <th>Početak</th>
+                                    <th>Kraj</th>
                                 </tr>
                             </thead>
                             <tbody>
