@@ -103,30 +103,35 @@ app.get("/api/user", (req, res) => {
   if (req.session.user) {
       return res.json(req.session.user);
   } else {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: "Neautorizovano!" });
   }
 });
 
-app.get("/logout", (req, res)=>{
-  req.session.destroy(err => {
-      if (err) {
-          return res.status(500).json({ error: 'Logout failed' });
-      }
-      res.clearCookie('connect.sid');
-  });
+app.get("/api/user-profile", (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+        return res.status(401).json({ message: "Neautorizovano!" });
+    }
+
+    const sql = "SELECT * FROM users WHERE id = ?";
+    db.query(sql, [userId], (err, data) => {
+        if (err) return res.status(500).json({ message: "Error fetching user data" });
+        if (data.length === 0) return res.status(404).json({ message: "Korisnik nije pronađen!" });
+        return res.status(200).json(data[0]);
+    });
 });
 
-app.delete("/admin/delete-user/:id", (req, res) => {
-    const userId = req.params.id;
+app.get("/api/current-user", (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+        return res.status(401).json({ message: "Neautorizovano!" });
+    }
 
-    const sql = "DELETE FROM users WHERE id = ?";
-    db.query(sql, [userId], (err, result) => {
-        if (err) {
-            console.error("Greška pri brisanju korisnika:", err);
-            return res.status(500).json({ success: false, message: "Internal server error" });
-        }
-
-        return res.json({ success: true, message: "Korisnik uspješno obrisan!" });
+    const sql = "SELECT id, firstName, lastName, email, role FROM users WHERE id = ?";
+    db.query(sql, [userId], (err, data) => {
+        if (err) return res.status(500).json({ message: "Error fetching user data" });
+        if (data.length === 0) return res.status(404).json({ message: "Korisnik nije pronađen!" });
+        return res.status(200).json(data[0]);
     });
 });
 
@@ -140,6 +145,95 @@ app.get("/api/get-users", (req, res) => {
         return res.status(200).json(data);
     });
 });
+
+app.delete("/admin/delete-user/:id", (req, res) => {
+    const userId = req.params.id;
+
+    const sql = "DELETE FROM users WHERE id = ?";
+    db.query(sql, [userId], (err, result) => {
+        if (err) {
+            console.error("Greška pri brisanju korisnika:", err);
+            return res.status(500).json({ success: false, message: "Internal server error" });
+        }
+        return res.json({ success: true, message: "Korisnik uspješno obrisan!" });
+    });
+});
+
+app.get("/admin", (req, res) => {
+    if (req.isAuthenticated() && req.user.role === 'admin') {
+        res.status(200).json({ message: "Dobrodošli na stranicu Admina!" });
+    } else {
+        res.status(401).json({ message: "Neautorizovano!" });
+    }
+});
+
+app.get("/logout", (req, res)=>{
+  req.session.destroy(err => {
+      if (err) {
+          return res.status(500).json({ error: 'Logout failed' });
+      }
+      res.clearCookie('connect.sid');
+  });
+});
+  
+  app.get("/get-worker/:id", (req, res)=>{
+    const sql="SELECT * FROM workers WHERE id = ?";
+    const id=req.params.id;
+    db.query(sql, [id], (err, data)=>{
+        if(err) return res.json("Error");
+        return res.json(data); 
+    })
+  });
+
+  app.delete("/admin/delete-worker/:id", (req, res)=>{
+    const id=req.params.id;
+    const sqlQuestions="DELETE FROM questions WHERE worker_id=?";
+    db.query(sqlQuestions, [id], (err, data)=>{
+        if(err) console.log("Error");
+        console.error(err);
+    });
+    const sqlWorkers="DELETE FROM worker_registers WHERE worker_id=?";
+    db.query(sqlWorkers,[id],(err,data)=>{
+        if(err) console.log("Error");
+        console.error(err);
+    });
+    const sql="DELETE FROM worker WHERE id = ?";
+    db.query(sql, [id], (err, data)=>{
+        if(err) return res.json("Error");
+        console.error(err);
+        return res.json(data);
+    })
+  });
+
+/*app.delete("/admin/delete-worker/:id", (req, res) => {
+    const workerId = req.params.id;
+
+    const sqlQuestions = "DELETE FROM questions WHERE id = ?";
+    db.query(sqlQuestions, [workerId], (err, data) => { 
+        if (err) {
+            console.error("Greška pri brisanju radnika:", err);
+            return res.status(500).json({ success: false, message: "Internal server error" });
+        }
+        return res.json({ success: true, message: "Korisnik uspješno obrisan!" });
+    });
+    const sqlWorkers = "DELETE FROM worker_registers WHERE id = ?";
+    db.query(sqlWorkers, [workerId], (err, data) => {
+        if (err) {
+            console.error("Greška pri brisanju radnika:", err);
+            return res.status(500).json({ success: false, message: "Internal server error" });
+        }
+        return res.json({ success: true, message: "Korisnik uspješno obrisan!" });
+    });
+    const sql = "DELETE FROM worker WHERE id = ?";
+    db.query(sql, [workerId], (err, data)=> {
+        if (err) {
+            console.error("Greška pri brisanju radnika:", err);
+            return res.status(500).json({ success: false, message: "Internal server error" });
+        }
+        return res.json({ success: true, message: "Korisnik uspješno obrisan!" });
+    });
+  });*/
+
 
 app.put("/admin/update/:id", (req, res)=>{
   try{

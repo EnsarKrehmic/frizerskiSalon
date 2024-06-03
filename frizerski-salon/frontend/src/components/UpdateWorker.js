@@ -38,7 +38,7 @@ function UpdateWorker(){
         <div className="d-flex justify-content-center align-items-center bg-warning vh-100">
             <div className="bg-white p-3 rounded w-25">
                 <h2>Ažuriranje radnika</h2>
-                <Link to="/admin" className="btn btn-default border w-100 bg-light text-decoration-none">Go Back</Link>
+                <Link to="/admin" className="btn btn-success border w-100 bg-dark text-decoration-none">Nazad</Link>
                 <form action="" onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="title">Ime</label>

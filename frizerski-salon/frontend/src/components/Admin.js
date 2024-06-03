@@ -107,7 +107,7 @@ function Admin(){
                                         <td>{data.nickname}</td>
                                         <td>{data.email}</td>
                                         <td>
-                                        <Link to={`update/${data.id}`} className="btn btn-success">Ažuriraj</Link>
+                                        <Link to={`update/${data.id}`} className="btn btn-success m-2">Ažuriraj</Link>
                                         {data.status === "ACTIVE" ? (
                                             <button className="btn btn-danger m-2" onClick={() => handleStatusDeactivate(data.id)}>Deaktiviraj</button>
                                         ) : (
@@ -142,7 +142,7 @@ function Admin(){
                                         <td>
                                             <Link to={`chosen-worker/${data.id}`} className="btn btn-info m-2">Pogledaj</Link>
                                             <Link to={`update-worker/${data.id}`} className="btn btn-success m-2">Ažuriraj</Link>
-                                            <button className="btn btn-danger m-2" onClick={e => handleDeleteWorker(data.id)}>Ukloni</button>
+                                            <button className="btn btn-warning m-2" onClick={e => handleDeleteWorker(data.id)}>Ukloni</button>
                                         </td>
                                     </tr>
                                 ))}
