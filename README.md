@@ -63,7 +63,7 @@ Projekti koji nemaju priloženu dokumentaciju ili nisu spremljeni i postavljeni 
 Riječ je o web aplikaciji kreiranoj za Frizerski salon.
 <hr>
 
-### Opis stranice
+### Opis stranice:
 Web stranica predstavlja interaktivnu platformu za frizerski salon koja nudi optimalan spektar funkcionalnosti takvih da korisniku pruže ugodno iskustvo na njoj. U nastavku ćemo nabrojati ključne aspekte stranice:
 1. Landing page - Prelijepo urađen Landing page koji privlači i drži pažnju gosta sa atraktivnim dizajnom i relevatnim informacijama. U headeru se nalaze jasno definisane sekcije koje predstavljaju podatke o nama, našim uslugama, stilovima koji postoje, cijenama, recenzijama te kontakt informacijama.
 2. Login i registracija - Forma logina i registracije koja nudi mogućnost prijave na našu platformu. Interfejs je kreiran tako da bude jednostavan za upotrebu, omogućavajući gostima da veoma brzo kreiraju nove, ili pristupe starim profilima.
@@ -74,17 +74,17 @@ Web stranica predstavlja interaktivnu platformu za frizerski salon koja nudi opt
 7. Sigurnost i privatnost - Nešto ovako nastojimo osigurati implementirajući sigurnosne mehanizme poput SSL enkripcije za zaštitu osjetljivih podataka te u što većem procentu pridržavanjem najvećih standarda u obradi podataka.
 <hr> 
 
-### Korištene tehnologije
+### Korištene tehnologije:
 1. FRONTEND
 - React.js: Framework programskog jezika Javascript korišten za izgradnju korisničke strane aplikacije.
 - Bootstrap: Biblioteka alata za stilizaciju - Cascading Styles Sheets (CSS) korišten za brzo i jednostavno stiliziranje dijelove aplikacije.
 - Moment.js: Biblioteka Moment.js integrisana zbog manipulacije datumima i vremenima na korisničkoj strani aplikacije.
-2. BACKEND:
+2. BACKEND
 - Node.js: Serverski okvir baziran na programskom jeziku Javascript korišten za izgradnju backend dijela aplikacije.
 - Nodemon: Korištena je opcija Nodemon koji omogućuje automatsko ponovno pokretanje servera nakon svake promjene u izvornom kodu.
 - bcrypt: Biblioteku bcrypt korištena za pohranjivanje lozinki kako bismo osigurali sigurnost korisničkih podataka.
 - Cors: Middleware korišten za rukovanje CORS zahtjeva, preciznije zbog upravljanja komunikacijom između React.js aplikacije i backend servera u različitim domenama.
-- kie i session Parses: Middleware softver korišten za upravljanje sesijom i kolačićima u aplikaciji.
+- Cookie i session Parses: Middleware softver korišten za upravljanje sesijom i kolačićima u aplikaciji.
 3. BAZA PODATAKA:
 - Express.js: Kao glavni okvir za izgradnju našeg servera. To je omogućilo da brzo i jednostavno definiramo rute, upravljamo zahtjevima i sesijama.
 - MySQL: Kao baza podataka, uz pomoć MySQL2 klijenta za Node.js. To je omogućilo pohranjivanje i održavanje podataka.
