@@ -3,15 +3,26 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Guest(){
+    const [userInfo, setUserInfo] = useState(null);
     const [workers, setWorkers] = useState(null);
 
     axios.defaults.withCredentials=true;
+
+    useEffect(()=>{
+        axios.get("http://localhost:3307/api/get-users")
+        .then(response=>setUserInfo(response.data))
+        .catch(error=>console.error("Error fetching user information", error));
+    }, []);
 
     useEffect(()=>{
         axios.get("http://localhost:3307/api/get-workers")
         .then(response=>setWorkers(response.data))
         .catch(error=>console.error("Error fetching user information", error));
     }, []);
+
+    if (!userInfo) {
+        return <div>Učitavanje...</div>;
+    }
 
     if (!workers) {
         return <div>Učitavanje...</div>;
