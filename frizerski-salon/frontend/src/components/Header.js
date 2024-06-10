@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { UserContext } from './UserContext';
 import useNavbar from '../hooks/useNavbar';
 import { Link } from 'react-router-dom';
@@ -15,14 +15,13 @@ import './Contact.css';
 
 function Header() {
   useNavbar();
-  const user = useContext(UserContext);
-  const [setUser] = useState(null);
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    axios.get('http://localhost:3307/api/user-profile')
+    axios.get('http://localhost:3307/api/user', { withCredentials: true })
       .then(response => setUser(response.data))
       .catch(error => console.error("Error fetching user information", error));
-  }, []);
+  }, [setUser]);
 
   return (
     <section className="header">
@@ -36,10 +35,15 @@ function Header() {
         <Link to="/pricing">CIJENA</Link>
         <Link to="/review">RECENZIJE</Link>
         <Link to="/visit">TERMIN</Link>
-        <Link to="/login">PRIJAVA</Link>
         <Link to="/contact">KONTAKT</Link>
-        <Link to="/profile">PROFIL</Link>
-        <Link to="/admin">ADMIN</Link>
+        {!user ? (
+          <Link to="/login">PRIJAVA</Link>
+        ) : (
+          <>
+            {user.role === 'USER' && <Link to="/profile">PROFIL</Link>}
+            {user.role === 'ADMIN' && <Link to="/admin">ADMIN</Link>}
+          </>
+        )}
       </nav>
       <div id="menu-btn" className="fas fa-bars"></div>
     </section>
