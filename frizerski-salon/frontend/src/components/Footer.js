@@ -1,19 +1,16 @@
 import React from 'react';
 import './Footer.css';
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
     <section className="footer" id="footer">
         <div className="box-container">
             <div className="box">
-                <h3> Pronađite Nas Ovdje </h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi, voluptatem.</p>
-                <div className="share">
-                    <a href="#" className="fab fa-facebook-f"></a>
-                    <a href="#" className="fab fa-twitter"></a>
-                    <a href="#" className="fab fa-instagram"></a>
-                    <a href="#" className="fab fa-linkedin"></a>
-                </div>
+            <h3>Pronađite Nas Ovdje</h3>
+                <p>
+                    Možete nas posetiti direktno na našoj <Link to="/contact" style={{ color: 'blue', textDecoration: 'underline' }}>lokaciji</Link>.
+                </p>
             </div>
             <div className="box">
                 <h3>Kontaktirajte Nas</h3>
