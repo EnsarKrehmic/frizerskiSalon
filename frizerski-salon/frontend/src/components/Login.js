@@ -28,13 +28,15 @@ function Login() {
                 .then(res => {
                     if (res.data === "DEACTIVATED") {
                         alert("Vaš profil je deaktiviran te se ne možete prijaviti.");
-                        navigate("/login");
+                        navigate("/main");
                     }
                     else if (res.data === "USER") {
-                        navigate("/main")
+                        navigate("/profile")
+                        window.location.reload();
                     }
                     else if (res.data === "ADMIN") {
                         navigate("/admin")
+                        window.location.reload();
                     }
                     else {
                         alert("Unos nije primljen.");
