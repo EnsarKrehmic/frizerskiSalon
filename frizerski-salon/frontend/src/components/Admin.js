@@ -28,41 +28,41 @@ function Admin(){
         .catch(error=>console.error("Error fetching visits information", error));
     }, []);
 
-    const handleStatusDeactivate=async(id)=>{
-        try{
-            await axios.put(`http://localhost:3307/admin/delete-user/${id}`);
+    const deactivateUser = async (userId) => {
+        try {
+            await axios.put(`http://localhost:3307/admin/deactivate/${userId}`);
             window.location.reload();
-        }catch(err){
-            console.log(err);
+        } catch (error) {
+            console.error("Failed to deactivate user", error);
         }
     }
 
-    const handleStatusActivate=async(id)=>{
-        try{
-            await axios.put(`http://localhost:3307/admin/delete-user/${id}`);
+    const activateUser = async (userId) => {
+        try {
+            await axios.put(`http://localhost:3307/admin/activate/${userId}`);
             window.location.reload();
-        }catch(err){
-            console.log(err);
+        } catch (error) {
+            console.error("Failed to activate user", error);
         }
     }
     
-    const handleDeleteWorker=async(id)=>{
+    const handleDeleteWorker=async(userId)=>{
         try{
-            await axios.delete(`http://localhost:3307/admin/delete-worker/${id}`);
+            await axios.delete(`http://localhost:3307/admin/delete-worker/${userId}`);
             window.location.reload();
         }catch(err){
             console.log(err);
-            console.log("Brisanje radnika sa ID:", id);
+            console.log("Brisanje radnika sa ID:", userId);
         }
     }
 
-    const handleDeleteUser = async (id) => {
+    const handleDeleteUser = async (userId) => {
         try {
-            await axios.delete(`http://localhost:3307/admin/delete-user/${id}`);
+            await axios.delete(`http://localhost:3307/admin/delete-user/${userId}`);
             window.location.reload();
         } catch (err) {
             console.log(err);
-            console.log("Brisanje korisnika sa ID:", id);
+            console.log("Brisanje korisnika sa ID:", userId);
         }
     };    
 
@@ -109,9 +109,9 @@ function Admin(){
                                         <td>
                                         <Link to={`update/${data.id}`} className="btn btn-success m-2">Ažuriraj</Link>
                                         {data.status === "ACTIVE" ? (
-                                            <button className="btn btn-danger m-2" onClick={() => handleStatusDeactivate(data.id)}>Deaktiviraj</button>
+                                            <button className="btn btn-danger m-2" onClick={() => deactivateUser(data.id)}>Deaktiviraj</button>
                                         ) : (
-                                            <button className="btn btn-danger m-2" onClick={() => handleStatusActivate(data.id)}>Aktiviraj</button>
+                                            <button className="btn btn-danger m-2" onClick={() => activateUser(data.id)}>Aktiviraj</button>
                                         )}
                                         <button className="btn btn-warning m-2" onClick={() => handleDeleteUser(data.id)}>Ukloni</button>
                                         </td>
