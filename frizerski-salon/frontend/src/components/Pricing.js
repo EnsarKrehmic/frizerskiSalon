@@ -17,7 +17,7 @@ function Pricing() {
             <li>Pranje i sušenje kose</li>
             <li>Stilizacija</li>
           </ul>
-          <a href="#" className="btn">Rezerviraj sada</a>
+          <button className="btn" onClick={() => alert('Rezervacija osnovnog paketa')}>Rezerviraj sada</button>
         </div>
         <div className="box">
           <h3 className="title">SREDNJI</h3>
@@ -30,7 +30,7 @@ function Pricing() {
             <li>Pranje i sušenje kose</li>
             <li>Stilizacija i farbanje</li>
           </ul>
-          <a href="#" className="btn">Rezerviraj sada</a>
+          <button className="btn" onClick={() => alert('Rezervacija srednjeg paketa')}>Rezerviraj sada</button>
         </div>
         <div className="box">
           <h3 className="title">PREMIUM</h3>
@@ -43,7 +43,7 @@ function Pricing() {
             <li>Stilizacija i farbanje</li>
             <li>Specijalni tretmani</li>
           </ul>
-          <a href="#" className="btn">Rezerviraj sada</a>
+          <button className="btn" onClick={() => alert('Rezervacija premium paketa')}>Rezerviraj sada</button>
         </div>
       </div>
     </section>
