@@ -10,7 +10,8 @@ function LogoutButton(){
         try {
             axios.get('http://localhost:3307/logout');
             console.log('Uspješno ste se odjavili.');
-            navigate("/");
+            navigate("/main");
+            window.location.reload();
         } catch (error) {
             console.error('Odjava neuspješna:', error.message);
         }
