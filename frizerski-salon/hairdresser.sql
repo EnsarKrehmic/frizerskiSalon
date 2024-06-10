@@ -6,6 +6,7 @@ USE hairdresser;
 	Database: hairdresser
 */
 
+-- Ovih 8 komandi treba staviti u comment prilikom prvog pokretanja baze
 -- Uklanjanje postojećih stranih ključeva
 ALTER TABLE `questions` DROP FOREIGN KEY `FK_QuestionUser`;
 ALTER TABLE `questions` DROP FOREIGN KEY `FK_QuestionWorker`;
