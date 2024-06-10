@@ -47,7 +47,7 @@ section{
 
 .heading{
    text-align: center;
-   color:var(--primary-color);
+   color:var(--main-color);
    text-transform: capitalize;
    margin-bottom: 3rem;
    font-size: 4rem;
@@ -76,7 +76,7 @@ section{
 
 .visit .headingtermin {
     text-align: center;
-    color: var(--2a201c);
+    color:var(--main-color);
     text-transform: capitalize;
     margin-bottom: 3rem;
     font-size: 4rem;
