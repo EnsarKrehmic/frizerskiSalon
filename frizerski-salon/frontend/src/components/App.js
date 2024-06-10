@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import ChosenWorkerAdmin from "./ChosenWorkerAdmin";
 import GuestChosenWorker from "./GuestChosenWorker";
 import WorkerRegister from "./WorkerRegister";
@@ -43,7 +43,7 @@ const App = () => {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:3307/api/current-user')
+        axios.get('http://localhost:3307/api/user')
             .then(response => setUser(response.data))
             .catch(error => console.error("Error fetching user information", error));
     }, []);
@@ -53,6 +53,7 @@ const App = () => {
             <Router>
                 <Header />
                 <Routes>
+                    <Route path="/" element={<Navigate to="/main" />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/main" element={<Main />} />
                     <Route path="/about" element={<About />} />
@@ -64,23 +65,23 @@ const App = () => {
                     <Route path="/login" element={<Login onLogin={handleLogin} />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/contact" element={<Contact />} />
-                    <Route path="/admin" element={<Admin />}></Route>
+                    <Route path="/admin" element={<Admin />} />
                     <Route path="/profile" element={<Profile />} />
-                    <Route path="/logout" element={<LogoutButton />}></Route>
-                    <Route path="/add-user" element={<AddUser />}></Route>
-                    <Route path="/admin/update/:id" element={<UpdateUser />}></Route>
-                    <Route path="/add-worker" element={<AddWorker />}></Route>
-                    <Route path="/admin/update-worker/:id" element={<UpdateWorker />}></Route>
-                    <Route path="/chosen-worker/:id" element={<ChosenWorker />}></Route>
-                    <Route path="/admin/chosen-worker/:id" element={<ChosenWorkerAdmin />}></Route>
-                    <Route path="/chosen-worker/:id/add-question/:id" element={<AddQuestion />}></Route>
-                    <Route path="/worker-register/:id" element={<WorkerRegister />}></Route>
-                    <Route path="/worker-history/:id" element={<WorkerHistory />}></Route>
-                    <Route path="/guest" element={<Guest />}></Route>
-                    <Route path="/chosen-worker-guest/:id" element={<GuestChosenWorker />}></Route>
+                    <Route path="/logout" element={<LogoutButton onLogout={handleLogout} />} />
+                    <Route path="/add-user" element={<AddUser />} />
+                    <Route path="/admin/update/:id" element={<UpdateUser />} />
+                    <Route path="/add-worker" element={<AddWorker />} />
+                    <Route path="/admin/update-worker/:id" element={<UpdateWorker />} />
+                    <Route path="/chosen-worker/:id" element={<ChosenWorker />} />
+                    <Route path="/admin/chosen-worker/:id" element={<ChosenWorkerAdmin />} />
+                    <Route path="/add-question/:id" element={<AddQuestion />} />
+                    <Route path="/worker-register/:id" element={<WorkerRegister />} />
+                    <Route path="/worker-history/:id" element={<WorkerHistory />} />
+                    <Route path="/guest" element={<Guest />} />
+                    <Route path="/chosen-worker-guest/:id" element={<GuestChosenWorker />} />
                     <Route path="/footer" element={<Footer />} />
-                    {user && user.role === 'admin' && <Route path="/admin" element={<Admin />} />}
-                    {user && user.role !== 'admin' && <Route path="/profile" element={<Profile />} />}
+                    {user && user.role === 'ADMIN' && <Route path="/admin" element={<Admin />} />}
+                    {user && user.role !== 'USER' && <Route path="/profile" element={<Profile />} />}
                 </Routes>
             </Router>
         </UserContext.Provider>
