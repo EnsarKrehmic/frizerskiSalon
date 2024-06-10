@@ -79,15 +79,16 @@ const Contact = () => {
             </form>
 
             <div className="map">
-                <h2>Naša lokacija</h2>
-                <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11440.375756221229!2d17.9235196!3d44.2051316!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475ee230c79f5f13%3A0x8874c26364dafd8!2sStudentski%20centar%20Zenica!5e0!3m2!1sen!2sba!4v1717380782238!5m2!1sen!2sba"
-                width="600"
-                height="450"
-                style={{border:0}}
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
+            <h2>Naša lokacija</h2>
+                <iframe
+                    title="Google Map Location of Our Office"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11440.375756221229!2d17.9235196!3d44.2051316!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475ee230c79f5f13%3A0x8874c26364dafd8!2sStudentski%20centar%20Zenica!5e0!3m2!1sen!2sba!4v1717380782238!5m2!1sen!2sba"
+                    width="600"
+                    height="450"
+                    style={{border:0}}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
         </div>
