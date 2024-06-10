@@ -122,7 +122,7 @@ section{
     text-decoration: underline;
 }
   
-  .footer .box-container .box .link:hover{
+.footer .box-container .box .link:hover{
     color: var(--black);
     text-decoration: underline;
 }
@@ -145,6 +145,18 @@ section{
     border-top: 0.1rem solid var(--primary-color);
 }
   
-  .footer .credit span{
+.footer .credit span{
     color: var(--primary-color);
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font: inherit;
 }
