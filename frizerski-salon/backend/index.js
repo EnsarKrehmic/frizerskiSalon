@@ -18,7 +18,8 @@ app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
 
 app.use(cors({
     origin: 'http://localhost:3001',
-    credentials: true
+    methods: ["POST", "GET", "PUT", "DELETE"],
+    credentials: true,
 }));
 app.use(express.json());
 app.use(cookieParser());
@@ -59,16 +60,22 @@ app.post("/login", (req, res) => {
                     role: user.role,
                     status: user.status
                 };
-                if (user.status === "DEACTIVATED") {
-                    return res.json("DEACTIVATED");
-                }
-                if (user.role === "USER") {
-                    return res.json("USER");
-                } else if (user.role === "ADMIN") {
-                    return res.json("ADMIN");
-                } else {
-                    return res.json("Unknown role");
-                }
+                req.session.save(err => {
+                    if (err) {
+                        console.error("Session Save Error:", err);
+                        return res.status(500).json("Error");
+                    }
+                    if (user.status === "DEACTIVATED") {
+                        return res.json("DEACTIVATED");
+                    }
+                    if (user.role === "USER") {
+                        return res.json("USER");
+                    } else if (user.role === "ADMIN") {
+                        return res.json("ADMIN");
+                    } else {
+                        return res.json("Unknown role");
+                    }
+                });
             } else {
                 return res.json("Failed");
             }
@@ -121,7 +128,7 @@ app.get("/api/user-profile", (req, res) => {
     });
 });
 
-app.get("/api/current-user", (req, res) => {
+app.get("/api/current-user/:id", (req, res) => {
     const userId = req.session.userId;
     if (!userId) {
         return res.status(401).json({ message: "Neautorizovano!" });
@@ -256,41 +263,29 @@ app.put("/admin/update/:id", (req, res)=>{
   }
 });
 
-app.put("/admin/deactivate/:id", (req, res)=>{
-  try{
-      const status="DEACTIVATED";
-      const sql="UPDATE users SET status = ? WHERE id = ?";
-      const id=req.params.id;
-      db.query(sql, [status, id], (err, data)=>{
-          if(err){
-              console.error("SQL Insert Error:",err);
-              return res.json("Error");
-          }
-          return res.json(data);
-      });
-  }catch(error){
-      console.error(error);
-      return res.json("Error");
-  }
+const updateUserStatus = (status, req, res) => {
+  const id = req.params.id;
+  const sql = 'UPDATE users SET status = ? WHERE id = ?';
+
+  db.query(sql, [status, id], (err, data) => {
+    if (err) {
+      console.error(`SQL Error: ${err}`);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      res.json(data);
+    }
+  });
+};
+
+app.put('/admin/deactivate/:id', (req, res) => {
+  updateUserStatus('DEACTIVATED', req, res);
 });
 
-app.put("/admin/activate/:id", (req, res)=>{
-  try{
-      const status="ACTIVE";
-      const sql="UPDATE users SET status = ? WHERE id = ?";
-      const id=req.params.id;
-      db.query(sql, [status, id], (err, data)=>{
-          if(err){
-              console.error("SQL Insert Error:",err);
-              return res.json("Error");
-          }
-          return res.json(data);
-      });
-  }catch(error){
-      console.error(error);
-      return res.json("Error");
-  }
+app.put('/admin/activate/:id', (req, res) => {
+  updateUserStatus('ACTIVE', req, res);
 });
+
+
 
 app.post("/admin/add-worker", (req, res)=>{
   try{
@@ -364,23 +359,33 @@ app.get("/get-worker/:id", (req, res)=>{
   })
 });
 
-app.post("/add-question/:id", (req, res)=>{
-  const sql="INSERT INTO questions(message,user_id,worker_id) VALUES(?, ?, ?)";
-  const values=[req.body.content[0], req.body.user_id];
-  const id=req.params.id;
-  db.query(sql, [...values, id], (err, data)=>{
-      if(err) return res.json("Error");
-      return res.json("OK"); 
-  })
+app.post("/add-question/:id", (req, res) => {
+    const { content, user_id } = req.body;
+    const worker_id = req.params.id;
+
+    const sql = "INSERT INTO questions (message, user_id, worker_id) VALUES (?, ?, ?)";
+    db.query(sql, [content, user_id, worker_id], (err, data) => {
+        if (err) {
+            console.error("Greška pri postavljanju pitanja:", err);
+            return res.status(500).json("Error");
+        }
+        return res.status(200).json("OK");
+    });
 });
 
-app.get("/worker-questions/:id", (req, res)=>{
-  const sql="SELECT questions.id, questions.message, users.nickname FROM questions INNER JOIN users ON questions.user_id=users.id WHERE worker_id=?";
-  const id=req.params.id;
-  db.query(sql, [id], (err, data)=>{
-      if(err) return res.json("Error");
-      return res.json(data); 
-  })
+app.get("/worker-questions/:id", (req, res) => {
+    const worker_id = req.params.id;
+    const sql = `SELECT questions.id, questions.message, users.nickname 
+                 FROM questions 
+                 INNER JOIN users ON questions.user_id = users.id 
+                 WHERE questions.worker_id = ?`;
+    db.query(sql, [worker_id], (err, data) => {
+        if (err) {
+            console.error("Greška pri učitavanju pitanja:", err);
+            return res.status(500).json("Error");
+        }
+        return res.status(200).json(data);
+    });
 });
 
 app.delete("/admin/delete-question/:id", (req, res)=>{
