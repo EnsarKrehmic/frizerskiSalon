@@ -558,25 +558,25 @@ app.put("/admin/update-worker/:id", (req, res)=>{
  */
 app.delete("/admin/delete-worker/:id", (req, res)=>{
     // Get the workerId from the request parameters
-    const id=req.params.id;
+    const workerId=req.params.id;
 
     // Delete the questions associated with the worker from the database
     const sqlQuestions="DELETE FROM questions WHERE worker_id=?";
-    db.query(sqlQuestions, [id], (err, data)=>{
+    db.query(sqlQuestions, [workerId], (err, data)=>{
         if(err) console.log("Error");
         console.error(err);
     });
 
     // Delete the workers associated with the worker from the database
     const sqlWorkers="DELETE FROM worker_registers WHERE worker_id=?";
-    db.query(sqlWorkers,[id],(err,data)=>{
+    db.query(sqlWorkers,[workerId],(err,data)=>{
         if(err) console.log("Error");
         console.error(err);
     });
 
     // Delete the worker from the database
-    const sql="DELETE FROM worker WHERE id = ?";
-    db.query(sql, [id], (err, data)=>{
+    const sql="DELETE FROM workers WHERE id = ?";
+    db.query(sql, [workerId], (err, data)=>{
         if(err) return res.json("Error");
         console.error(err);
         return res.json(data);
