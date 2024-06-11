@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DatePicker from 'react-datepicker';
-import { useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import './Date.css';
 
 function WorkerRegister(){
@@ -42,6 +42,7 @@ function WorkerRegister(){
     return(
         <div className="d-flex justify-content-center align-items-center bg-warning vh-100">
             <div className="bg-white p-3 rounded w-25">
+            <Link to={"/profile"} className="btn btn-success border w-100 bg-dark text-decoration-none">Nazad</Link>
                 <h2>Izaberite vrijeme za termin:</h2>
                 <form action="" onSubmit={handleSubmit}>
                     <div className="mb-3">

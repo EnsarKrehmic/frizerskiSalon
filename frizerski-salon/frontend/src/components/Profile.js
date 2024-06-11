@@ -61,6 +61,7 @@ function User(){
                                         <td>
                                             <Link to={`/chosen-worker/${data.id}`} className="btn btn-info m-2">Pogledaj</Link>
                                             <Link to={`/worker-register/${data.id}`} className="btn btn-info m-2">Zakaži</Link>
+                                            <Link to={`/worker-history/${data.id}`} className="btn btn-info m-2">Historija</Link>
                                         </td>
                                     </tr>
                                 ))}

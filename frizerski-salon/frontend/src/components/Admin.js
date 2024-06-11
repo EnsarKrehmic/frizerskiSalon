@@ -1,79 +1,108 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios"; // axios library for making HTTP requests
+import React, { useEffect, useState } from "react"; // React library for building user interfaces
+import { Link } from "react-router-dom"; // React Router library for handling routing
 import LogoutButton from "./LogoutButton";
 
-function Admin(){
-    const [userInfo, setUserInfo] = useState(null);
-    const [users, setUsers] = useState(null);
-    const [workers, setWorkers] = useState(null);
+/**
+ * Admin component for the admin panel.
+ * Retrieves user information, list of users, and list of workers from the server.
+ * Provides functionality to deactivate/activate users, delete workers, and delete users.
+ */
+function Admin() {
+    // State variables to store user information, list of users, and list of workers
+    const [userInfo, setUserInfo] = useState(null); // User information
+    const [users, setUsers] = useState(null); // List of users
+    const [workers, setWorkers] = useState(null); // List of workers
 
-    axios.defaults.withCredentials=true;
+    // Set default credentials for axios requests to include credentials
+    axios.defaults.withCredentials = true;
 
+    // Fetch user information from the server
     useEffect(() => {
         axios.get("http://localhost:3307/api/user")
-            .then(response => setUserInfo(response.data))
-            .catch(error => console.error("Error fetching user information", error));
+            .then(response => setUserInfo(response.data)) // Set user information
+            .catch(error => console.error("Error fetching user information", error)); // Log error if fetching fails
     }, []);
 
-    useEffect(()=>{
+    // Fetch list of users from the server
+    useEffect(() => {
         axios.get("http://localhost:3307/api/get-users")
-        .then(response=>setUsers(response.data))
-        .catch(error=>console.error("Error fetching users information", error));
+            .then(response => setUsers(response.data)) // Set list of users
+            .catch(error => console.error("Error fetching users information", error)); // Log error if fetching fails
     }, []);
 
-    useEffect(()=>{
+    // Fetch list of workers from the server
+    useEffect(() => {
         axios.get("http://localhost:3307/api/get-workers")
-        .then(response=>setWorkers(response.data))
-        .catch(error=>console.error("Error fetching visits information", error));
+            .then(response => setWorkers(response.data)) // Set list of workers
+            .catch(error => console.error("Error fetching visits information", error)); // Log error if fetching fails
     }, []);
 
+    /**
+     * Function to deactivate a user.
+     * @param {string} userId - The ID of the user to deactivate.
+     */
     const deactivateUser = async (userId) => {
         try {
-            await axios.put(`http://localhost:3307/admin/deactivate/${userId}`);
-            window.location.reload();
+            await axios.put(`http://localhost:3307/admin/deactivate/${userId}`); // Send PUT request to deactivate user
+            window.location.reload(); // Reload the page
         } catch (error) {
-            console.error("Failed to deactivate user", error);
+            console.error("Failed to deactivate user", error); // Log error if deactivation fails
         }
     }
 
+    /**
+     * Function to activate a user.
+     * @param {string} userId - The ID of the user to activate.
+     */
     const activateUser = async (userId) => {
         try {
-            await axios.put(`http://localhost:3307/admin/activate/${userId}`);
-            window.location.reload();
+            await axios.put(`http://localhost:3307/admin/activate/${userId}`); // Send PUT request to activate user
+            window.location.reload(); // Reload the page
         } catch (error) {
-            console.error("Failed to activate user", error);
-        }
-    }
-    
-    const handleDeleteWorker=async(userId)=>{
-        try{
-            await axios.delete(`http://localhost:3307/admin/delete-worker/${userId}`);
-            window.location.reload();
-        }catch(err){
-            console.log(err);
-            console.log("Brisanje radnika sa ID:", userId);
+            console.error("Failed to activate user", error); // Log error if activation fails
         }
     }
 
+    /**
+     * Function to delete a worker.
+     * @param {string} userId - The ID of the worker to delete.
+     */
+    const handleDeleteWorker = async (userId) => {
+        try {
+            await axios.delete(`http://localhost:3307/admin/delete-worker/${userId}`); // Send DELETE request to delete worker
+            window.location.reload(); // Reload the page
+        } catch (err) {
+            console.log(err); // Log error if deletion fails
+            console.log("Brisanje radnika sa ID:", userId); // Log the ID of the deleted worker
+        }
+    }
+
+    /**
+     * Function to delete a user.
+     * @param {string} userId - The ID of the user to delete.
+     */
     const handleDeleteUser = async (userId) => {
         try {
-            await axios.delete(`http://localhost:3307/admin/delete-user/${userId}`);
-            window.location.reload();
+            await axios.delete(`http://localhost:3307/admin/delete-user/${userId}`); // Send DELETE request to delete user
+            window.location.reload(); // Reload the page
         } catch (err) {
-            console.log(err);
-            console.log("Brisanje korisnika sa ID:", userId);
+            console.log(err); // Log error if deletion fails
+            console.log("Brisanje korisnika sa ID:", userId); // Log the ID of the deleted user
         }
-    };    
+    };
 
+    // If user information is not yet loaded, display loading message
     if (!userInfo) {
         return <div>Učitavanje...</div>;
     }
 
+    // If list of users is not yet loaded, display loading message
     if (!users) {
         return <div>Učitavanje...</div>;
     }
 
+    // If list of workers is not yet loaded, display loading message
     if (!workers){
         return <div>Učitavanje...</div>;
     }

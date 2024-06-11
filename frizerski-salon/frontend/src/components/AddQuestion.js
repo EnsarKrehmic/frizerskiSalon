@@ -2,44 +2,68 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
+/**
+ * AddQuestion component is responsible for allowing users to post questions for a chosen worker.
+ * It fetches user information and posts the question to the server.
+ * It renders a form for the user to enter the question content.
+ */
 function AddQuestion() {
+    // Get the id parameter from the URL
     const { id } = useParams();
+    // State for user information
     const [userInfo, setUserInfo] = useState(null);
+    // State for form values
     const [values, setValues] = useState({
         content: '',
         user_id: ''
     });
 
+    // Set default credentials for axios requests
     axios.defaults.withCredentials = true;
+    // Navigate function for redirecting to other pages
     const navigate = useNavigate();
 
+    /**
+     * Handles input changes for the form fields.
+     * @param {Object} event - The event object.
+     */
     const handleInput = (event) => {
         setValues(prev => ({ ...prev, [event.target.name]: event.target.value }));
     };
 
+    /**
+     * Handles form submission.
+     * @param {Object} event - The event object.
+     */
     const handleSubmit = (event) => {
         event.preventDefault();
+        // Set the user_id field with the user's id
         values.user_id = userInfo.id;
+        // Post the question to the server
         axios.post(`http://localhost:3307/add-question/${id}`, values)
             .then(res => {
+                // If the response is "OK", show a success message and redirect to the chosen worker page
                 if (res.data === "OK") {
                     alert("Pitanje uspješno postavljeno.");
                     navigate(`/chosen-worker/${id}`);
                 } else {
+                    // If the response is not "OK", show an error message
                     alert("Pitanje nije postavljeno.");
                 }
             })
             .catch(err => console.log(err));
     };
 
+    // Fetch user information when the component mounts
     useEffect(() => {
         axios.get("http://localhost:3307/api/user")
             .then(response => setUserInfo(response.data))
             .catch(error => console.error("Error fetching user information", error));
     }, []);
 
+    // If user information is not yet fetched, show a loading message
     if (!userInfo) {
-        return <div>Loading...</div>;
+        return <div>Učitavanje...</div>;
     }
 
     return (

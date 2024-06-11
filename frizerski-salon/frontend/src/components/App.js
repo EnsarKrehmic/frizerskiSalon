@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+
+// Importing components
 import ChosenWorkerAdmin from "./ChosenWorkerAdmin";
 import GuestChosenWorker from "./GuestChosenWorker";
 import WorkerRegister from "./WorkerRegister";
@@ -31,17 +33,35 @@ import Main from './Main';
 import Home from './Home';
 import './App.css';
 
+/**
+ * App component is the root component of the application.
+ * It handles the user state and renders the router.
+ */
 const App = () => {
+    // State to hold the user information
     const [user, setUser] = useState(null);
 
+    /**
+     * Function to handle the login event.
+     * Updates the user state with the user data.
+     * @param {Object} userData - The user data to be set in the state.
+     */
     const handleLogin = (userData) => {
         setUser(userData);
     };
 
+    /**
+     * Function to handle the logout event.
+     * Clears the user state.
+     */
     const handleLogout = () => {
         setUser(null);
     };
 
+    /**
+     * Effect hook to fetch the user information from the API.
+     * Updates the user state with the response data.
+     */
     useEffect(() => {
         axios.get('http://localhost:3307/api/user')
             .then(response => setUser(response.data))
@@ -49,10 +69,13 @@ const App = () => {
     }, []);
 
     return (
+        // Providing the user state to the child components
         <UserContext.Provider value={{ user, setUser }}>
             <Router>
+                {/* Rendering the header component */}
                 <Header />
                 <Routes>
+                    {/* Defining the routes for the application */}
                     <Route path="/" element={<Navigate to="/main" />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/main" element={<Main />} />
@@ -80,7 +103,9 @@ const App = () => {
                     <Route path="/guest" element={<Guest />} />
                     <Route path="/chosen-worker-guest/:id" element={<GuestChosenWorker />} />
                     <Route path="/footer" element={<Footer />} />
+                    {/* Rendering admin routes only if the user is an admin */}
                     {user && user.role === 'ADMIN' && <Route path="/admin" element={<Admin />} />}
+                    {/* Rendering profile route only if the user is not a user */}
                     {user && user.role !== 'USER' && <Route path="/profile" element={<Profile />} />}
                 </Routes>
             </Router>

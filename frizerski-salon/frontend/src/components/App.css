@@ -1,34 +1,45 @@
+/**
+ * CSS styles for the main navigation bar of the app.
+ */
+
+/* Styles for the navigation bar */
 .app nav {
-  background-color: #333;
-  padding: 10px 20px;
+  background-color: #333; /* Set the background color to dark gray */
+  padding: 10px 20px; /* Set the padding for the navigation bar */
 }
 
+/* Styles for the unordered list within the navigation bar */
 .app nav ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: space-around;
+  list-style-type: none; /* Remove the default bullet points */
+  padding: 0; /* Remove the default padding */
+  margin: 0; /* Remove the default margin */
+  display: flex; /* Use flexbox layout to space the list items evenly */
+  justify-content: space-around; /* Distribute the list items evenly along the horizontal axis */
 }
 
+/* Styles for the list items within the navigation bar */
 .app nav ul li {
-  display: inline;
+  display: inline; /* Display the list items inline */
 }
 
+/* Styles for the anchor tags within the list items */
 .app nav ul li a {
-  color: white;
-  text-decoration: none;
-  padding: 10px 15px;
+  color: white; /* Set the text color to white */
+  text-decoration: none; /* Remove the default underline */
+  padding: 10px 15px; /* Set the padding for the anchor tags */
 }
 
+/* Styles for the anchor tags when hovered over */
 .app nav ul li a:hover {
-  background-color: #555;
+  background-color: #555; /* Set the background color to dark gray when hovered over */
 }
 
+/* Styles for the main content area of the app */
 .app {
-  text-align: center;
+  text-align: center; /* Center-align the text within the app */
 }
 
+/* Styles for the content area within the app */
 .app .content {
-  padding: 20px;
+  padding: 20px; /* Set the padding for the content area */
 }

@@ -1,17 +1,29 @@
+/* Importing Google Fonts for the font 'Playfair Display' */
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display:1,300,400,400italic,500,700,700italic,900');
 
+/* Defining CSS Variables */
 :root{
+    /* Main Background Color */
     --main-color: #DDD0C8;
+    /* Primary Color */
     --primary-color: #323232;
+    /* Hover Color */
     --hover: #5a4d3e;
+    /* Black Color */
     --black: #2a201c;
+    /* White Color */
     --white: #fff;
+    /* Light Background Color */
     --light-bg: #f3efec;
+    /* Dark Background Color */
     --dark-bg: rgba(0,0,0,.7);
+    /* Border Style */
     --border: .1rem solid #aaa;
+    /* Box Shadow Style */
     --box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
 }
 
+/* Applying CSS Reset and Transition Animation */
 *{
    font-family: 'Playfair Display', sans-serif;
    margin:0; padding:0;
@@ -21,7 +33,7 @@
    transition: all .2s linear;
 }
  
-
+/* Applying Scroll Behavior and Scrollbar Styles */
 html{
     font-size: 62.5%;
     overflow-x: hidden;
@@ -41,11 +53,14 @@ html::-webkit-scrollbar-thumb{
     background-color: var(--primary-color);
 }
  
+/* Applying Section Padding */
 section{
     padding: 5rem 7%;
 }
 
+/* Styling the About Section */
 .heading{
+   /* Text Alignment, Color, Text Transformation, Margin */
    text-align: center;
    color:var(--primary-color);
    text-transform: capitalize;
@@ -55,6 +70,7 @@ section{
 }
  
 .btn{
+   /* Margin, Display, Background, Color, Font Size, Cursor, Padding */
    margin-top: 1rem;
    display: inline-block;
    background: var(--primary-color);
@@ -65,67 +81,90 @@ section{
 }
  
 .btn:hover{
+    /* Background on Hover */
     background: var(--hover);
 }
 
+/* Applying Background Image to About Section */
 .about{
   background-image:url(../images/about-left.png);
   background-repeat:no-repeat; 
   background-position:left bottom;
 }
 
+/* Styling the Row Element Inside About Section */
 .about .row{
+  /* Flexbox Layout, Align Items, Flex Wrap */
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
 
+/* Styling the Image Element Inside Row */
 .about .row .image{
+  /* Flex Basis, Flex Grow, Flex Shrink, Width */
   flex:1 1 39rem;
 }
 
+/* Styling the Image Inside Image Element */
 .about .row .image img{
+  /* Width */
   width: 100%;
 }
+
+/* Styling the Content Element Inside Row */
 .about .row .content{
+  /* Flex Basis, Flex Grow, Flex Shrink, Padding */
   flex:1 1 51rem;
   padding:5rem;
 }
 
+/* Styling the H3 Element Inside Content */
 .about .row .content h3{
+  /* Font Size, Color */
   font-size: 3rem;
   color:var(--primary-color);
 }
 
+/* Styling the Paragraph Element Inside Content */
 .about .row .content p{
+  /* Font Size, Color, Padding, Line Height */
   font-size: 1.6rem;
   color:#444;
   padding:1rem 0;
   line-height: 1.8;
 }
 
+/* Styling the Icons Container Inside Content */
 .about .content .icons-container{
+  /* Flexbox Layout, Flex Wrap, Gap */
   display: flex;
   flex-wrap: wrap;
   gap:2rem;
   margin-top: 3rem;
 }
 
+/* Styling the Icons Element Inside Icons Container */
 .about .content .icons-container .icons{
+  /* Flex Basis, Flex Grow, Flex Shrink, Text Alignment, Background, Padding */
   flex:1 1 16rem;
   text-align: center;
   background: var(--light-bg);
   padding:3rem 2rem;
 }
 
+/* Styling the Image Inside Icons Element */
 .about .content .icons-container .icons img{
+  /* Height */
   height: 5rem;
 }
 
+/* Styling the H3 Element Inside Icons Element */
 .about .content .icons-container .icons h3{
+  /* Padding, Font Size, Color, Font Weight, Text Transformation */
   padding-top: 1rem;
   font-size: 1.6rem;
   color:#444;
   font-weight: normal;
   text-transform: capitalize;
-}
+} 
